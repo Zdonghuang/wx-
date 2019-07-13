@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>优惠券说明</title>
+	<script>
+		//rem 单位使用
+		(function() {
+		    var newRem = function() {
+		        var html = document.documentElement;
+		        html.style.fontSize = html.getBoundingClientRect().width / 10 + 'px';
+		    };
+		    window.addEventListener('resize', newRem, false);
+		    newRem();
+		})();
+	</script>
+	<style scoped="scoped">
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: "微软雅黑";
+		}
+		body{
+			background: #fffae3;
+			color:#666;
+		}
+		#app{
+			width:94%;
+			margin-left:3%;
+		}
+		h4{
+			text-align: center;
+			margin:0.4rem 0;
+			font-size:0.5rem;
+		}
+		.titleL{
+			color:red;
+			font-size: 0.43rem;
+			margin:0.1rem 0;
+		}
+		p{
+			font-size: 0.4rem;
+			text-indent: 29px;
+			line-height: 0.7rem;
+			color:#666;
+		}
+		.footer{
+			text-align: center;
+			font-size: 0.4rem;
+			font-weight: bold;
+			margin-top:0.6rem;
+		}
+	</style>
+	</head>
+	<body>
+		<div id="app">
+			<h4>优惠券说明</h4>
+			<p>1，优惠券不能同时叠加使用，每次只能使用一张优惠券；</p>
+			<p>2，优惠券只能用来抵扣订单支付；</p>
+			<p>3，优惠券不支持任何提现、转账；</p>
+			<p>4，优惠券应在券面表明的有效期内使用，过期自动作废；</p>
+			<p>5，优惠券的具体使用还应满足每张优惠券的券面表明的使用规则外，还应满足优惠券的全部使用规则；</p>
+			<p>6，优惠券一旦使用不予退还；</p>
+			<p>7，优惠券金额大于实际应付金额时，差额不予退还；优惠券金额小于实付金额时，需由用户支付差额；</p>
+			<p>8，已发放的优惠券如有存在不符合运营目的的情况时，官方有权收回已发放的优惠券；</p>
+			
+			<footer class="footer">本服务条款最终解释权归【优贷客】所有</footer>
+			<br />
+			
+		</div>
+	</body>
+</html>

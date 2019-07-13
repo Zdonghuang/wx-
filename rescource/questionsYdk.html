@@ -1,0 +1,92 @@
+﻿
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>常见问题</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<style type="text/css" scoped="scoped">
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+			}
+			body {
+				width: 100%;
+				background: #f2f2f2;
+			}
+			.conts{
+				width:100%;
+			}
+			.conts p:nth-of-type(1){
+				font-size:.43rem;
+				background: #fff;
+				padding:0.5rem;
+				border-bottom:1px solid #ccc;
+			}
+			.conts p:nth-of-type(2){
+				font-size:.43rem;
+				padding:0.5rem;
+				line-height: 0.74rem;
+				color:#333;
+				background: #f4f8fb;
+				font-size:.4rem;
+			}
+			.conts img{
+				float: right;
+			}
+			.conts img:nth-of-type(1){
+				width:0.3rem;
+			}
+			.conts img.down{
+				width:0.55rem;
+				margin-top:0.2rem
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<div id="app">
+			<div class="conts" v-for="(item,index) in lists" :key="item.id">
+				<p @click="change(index)">
+					<span>{{item.title}}</span>
+					<img v-if="!item.isShow" src="./img/rightArrow.png"/>
+					<img v-else src="./img/downArrow.png" class="down"/>
+				</p>
+				<p v-html="item.content" v-show="item.isShow"></p>
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:"#app",
+			data:{
+				lists:[
+					{id:"1",title:'一、如何注册信贷经理？',content:'打开“优贷客”APP，进入注册页面，点击上方注册按钮，输入手机号，按提示完成资料填写即可注册成功。',isShow:true},
+					{id:"2",title:'二、实名认证需要哪些材料？',content:'实名认证需要如下材料（公司将为您严加保密）：<br/>1、您的真实身份信息（身份证正反面照片、手持身份证照片）；<br/> 2、您的真实单位信息（名片或者工牌信息）。',isShow:false},
+					{id:"3",title:'三、实名认证为什么会不通过？',content:"只要您提交真实有效的信息，都会通过实名认证审核的，一般实名认证不通过的原因如下：<br/>1、身份信息不匹配，身份证号码和名字不匹配；<br/>2、提供虚假信息，虚假身份证、虚假单位信息等；<br/>3、手机号非实名制。",isShow:false},
+					{id:"4",title:"四、怎样才能具备抢单资格？",content:"实名认证通过的信贷员都具备抢单资格，具体要求如下：<br/>1、注册；<br/>2、提交材料进行实名认证审核；<br/>3、认证通过并且成功充值的信贷员才具备抢单资格。",isShow:false},
+					{id:"5",title:"五、平台上都是一手的客户资源吗？",content:"本平台为信贷员提供专业的服务，推送的都是一手借款客户信息，该平台推送客户流程如下：<br/>1、借款客户发起借款需求申请；<br/>2、平台进行订单核实、筛选、分类；<br/>3、随后在将订单信息推送到该平台。",isShow:false},
+					{id:"6",title:"六、如何抢单？怎么获取客户？",content:"目前，该平台只有抢单这一种接单模式，客户提交借款申请后，系统会随时发布客户的需求信息出来，您会收到订单提醒服务，点击抢单即可。",isShow:false},
+					{id:"7",title:'七、抢单成功后，如何联系客户？',content:'成功抢单后，该订单信息将出现在您的订单管理列表中，您可以获取客户的姓名和联系方式。（推荐开场话术：您好，我是和优贷客平台合作的XXX信贷经理，请问您是XXX先生/女士吗？）<br/>特别申明：请勿使用我是优贷客平台的信贷经理，这个是绝对不允许出现的，发现一个禁封一个，永不解封。',isShow:false},
+					{id:"8",title:'八、贷款进度如何反馈？',content:'在订单管理中心，可以对贷款进度进行实时反馈跟踪。',isShow:false},
+					{id:"9",title:'九、为什么会收到提示有新订单，然后去优贷客APP里面并没有该笔订单？',content:'因为目前只有抢单模式，在收到订单提醒后，如果您没有及时去接单，该笔订单可能会被别人抢走或者转为过期订单。',isShow:false},
+					{id:"10",title:'十、忘记密码怎么办？',content:'在登录界面，点击忘记密码，按照相关提示操作；输入手机验证码，然后重置密码即可。',isShow:false},
+				]
+			},
+			methods:{
+				change(index){
+					var self=this;
+					for(var i=0;i<this.lists.length;i++){
+						this.lists[i].isShow=false;
+					}
+					this.lists[index].isShow=true;
+				}
+			}
+		})
+	</script>
+</html>

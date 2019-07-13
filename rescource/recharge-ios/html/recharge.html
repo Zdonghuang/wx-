@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>选择充值</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .checkMoney {
+      position: relative;
+    }
+
+    .position {
+      position: absolute;
+      right: 2.1rem;
+      top: .9rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="top">
+      <div class="left"><img src="../img/arrow_left@2x.png" alt=""></div>
+      <span>充值</span>
+      <a href="#" class="right">交易记录</a>
+    </div>
+    <header class="rechargeHeader">
+      <ul>
+        <li>当前剩余金币</li>
+        <li><strong>{{Balmoney}}</strong></li>
+      </ul>
+    </header>
+    <section>
+      <!--<div class="bonusNote" v-show="isFirst || isHuodong">-->
+      <div class="bonusNote" v-show="isFirst">
+        <img src="../img/bg_chongzhi_banner@2x.png">
+      </div>
+      <!--<div class="gray" v-show="isFirst || isHuodong"></div>-->
+      <!-- <div class="gray" v-show="isFirst"></div> -->
+      <p class="reTitle">请选择充值金额</p>
+      <div class="checkMoney" v-for="list in lists" :key="list.id">
+        <img src="../img/icon_chongzhi_jinbi@2x.png" />
+        <div class="moneyCh" :style="{'margin-top':isFirst ? '0':'.25rem'}">
+          <strong :class="{topS:isTop}">{{list.value}}金币</strong>
+          <p v-show="isFirst">{{list.content1}}</p>
+          <!--<p v-show="isHuodong && !isFirst">{{list.content2}}</p>-->
+        </div>
+        <span class="position"><span class="yuan">￥</span><span class="moneybi">{{list.value}}</span></span>
+        <span class="btn" @click="checkMon(list.id,list.value)">充值</span>
+      </div>
+
+
+    </section>
+    <!--loading-->
+    <div class="loading" v-show="isLoading">
+      <div class="wx_loading_icon"></div>
+    </div>
+  </div>
+  <br />
+</body>
+<script type="text/javascript" src="../js/rem.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../js/axios.min.js"></script>
+<script>
+  var userIds, tokens, times, Balmoney;
+  function getUser(params) {
+    userIds = JSON.parse(params).userId;
+    tokens = JSON.parse(params).token;
+    times = JSON.parse(params).times;
+    Balmoney = JSON.parse(params).money;
+    deviceNumber = JSON.parse(params).deviceNumber;
+    //			alert(userIds);
+    localStorage.setItem("userIds", userIds);
+    localStorage.setItem("tokens", tokens);
+    localStorage.setItem("deviceNumber", deviceNumber);
+  }
+
+  new Vue({
+    el: "#app",
+    data: {
+      isFirst: true,
+      isHuodong: false,
+      isTop: undefined,
+      Balmoney: 0,
+      isLoading: true,
+      postUrl: "http://youdaikeshop.cn/loan",
+      lists: [
+        { id: 1, value: 600, content1: "新用户首次充值满600即送88金币" },
+        { id: 2, value: 1200, content1: "新用户首次充值满1200即送188金币" },
+        { id: 3, value: 2800, content1: "新用户首次充值满2800即送488金币" },
+        { id: 4, value: 5800, content1: "新用户首次充值满5800即送888金币" },
+      ]
+    },
+    created() {
+      var self = this;
+
+      setTimeout(function () {
+        self.Balmoney = Balmoney;
+        if (times == 0) {
+          self.isFirst = true;
+          self.isTop = false;
+        } else if (times > 0) {
+          self.isFirst = false;
+          self.isTop = true;
+        }
+        // 获取充值金额类型
+        axios.post(self.postUrl + "/app/sysGoldDeposits/list.htm", {
+          userId: userIds,
+          token: tokens
+        }).then(function (data) {
+          console.log(data);
+          if (data.status == 200) {
+            self.isLoading = false;
+            // self.lists.push(data.data.result.list);
+            // console.log(self.lists.length)
+          }
+          //					console.log(self.lists[0]);
+        });
+      }, 30);
+
+    },
+    methods: {
+      //点击充值金额
+      checkMon(val, money) {
+        //将状态和金额缓存到下一个页面支付使用
+        localStorage.setItem("checkId", val);
+        localStorage.setItem("money", money);
+        location.href = "checkWays.html";
+      },
+
+    }
+  });
+</script>
+
+</html>

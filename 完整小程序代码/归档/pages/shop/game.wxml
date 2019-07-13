@@ -1,0 +1,68 @@
+
+<text class="title">按出一秒</text>
+
+<view class="play" hover-class="hover" bind:touchstart="start" bind:touchend="end">开始</view>
+
+<block wx:if="{{ended && !win}}">
+    <view class="result">
+        <text class="h3">很遗憾!</text>
+        <view class="data">
+            <text class="duration">{{duration}} 秒</text>
+            <text wx:if="{{offset > 0}}">只多了{{offset}}秒!</text>
+            <text wx:else>只差{{-offset}}秒!</text>
+            <text>{{text}}</text>
+            <text>下次努力!</text>
+        </view>
+    </view>
+
+    <view class="action">
+        <text class="join" bind:tap="again" data-times="{{ptimes + stimes}}">再挑战一次</text>
+        <text class="share" catch:tap="share">分享免费玩</text>
+    </view>
+</block>
+
+<block wx:if="{{ended && win}}">
+    <view class="result win">
+        <text class="h3">KO!</text>
+        <view class="data">
+            <text class="duration">{{duration}} 秒</text>
+            <text>牛逼 !</text>
+        </view>
+    </view>
+    <view class="address">
+        <text>挑战商品邮寄地址:</text>
+        <form bindsubmit="submit">
+            <label for="">
+                <input type="text" name="name" placeholder="姓名" />
+            </label>
+            <label for="">
+                <input type="text" name="phone" placeholder="手机号码" />
+            </label>
+            <label for="">
+                <input type="text" name="city" placeholder="省、市、区县" />
+            </label>
+            <label for="">
+                <input type="text" name="detail" placeholder="详细地址，如楼号、单元号等" />
+            </label>
+            <button formType="submit">确认领奖品</button>
+        </form>
+    </view>
+</block>
+
+<block wx:if="{{post}}">
+    <view class="result post">
+        <text class="h2">恭喜!</text>
+        <view class="data">
+            <text>您挑战成功获得的商品</text>
+            <text>将于两个工作日内寄出</text>
+            <text>请注意查收！</text>
+        </view>
+    </view>
+
+    <view class="action">
+        <text class="join" bind:tap="back">返回主菜单</text>
+        <text class="share" catch:tap="share">分享免费玩</text>
+    </view>
+</block>
+
+<share-list hidden="{{share}}"></share-list>

@@ -1,0 +1,137 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>我要分享</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<style type="text/css" scoped="scoped">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				width: 100%;
+				background-size: 100% 100%;
+			}
+			
+			#btnClick {
+				background: red;
+				position: absolute;
+				border-radius: 22px;
+				cursor: pointer;
+				opacity: 0;
+			}
+			#warn,#warnU{
+				width:100%;
+				display: none;
+			}
+			#warn img,#warnU img{
+				width:100%;
+			}
+			/*手机，移动端*/
+			@media screen and (max-width: 760px) {
+				#btnClick {
+					top: 48%;
+					left: 36%;
+					width: 29%;
+					height: 7%;
+				}
+			}
+			/*大屏，iPad以上*/
+			
+			@media screen and (min-width: 760px) {
+				#btnClick {
+					top: 80%;
+				    left: 69%;
+				    width: 27%;
+				    height: 7%;
+				}
+			}
+		</style>
+		<script type="text/javascript">
+			
+			window.onload = function() {
+				resizes();
+				//动态获取高度并给body赋值
+				function resizes() {
+					var h = document.documentElement.clientHeight || document.body.clientHeight;
+					document.body.style.height = h + 'px';
+				}
+				window.onresize = resizes; //窗口改变时跟随改变
+				
+//				var apkurl="http://daibanlv.qiniu.daibanlv.com/dqm1.0.apk";
+				//当前浏览宽度
+				var width=document.body.clientWidth;
+				//微信浏览器打开时判断
+				var ua = navigator.userAgent.toLowerCase(); 
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					if(ua.match(/MicroMessenger/i)=="micromessenger") { 
+						resizes();
+						document.body.style.background="#fff";
+						document.getElementById("warnU").style.display="block";
+					}else{
+						if(width < 760){
+					  		document.body.style.background="url(./img/smallU.jpg) no-repeat";
+							document.body.style.backgroundSize="100% 100%";
+					  	}else{
+					  		document.body.style.background="url(./img/bigU.jpg) no-repeat";
+							document.body.style.backgroundSize="100% 100%";
+					  	}
+					}
+				  
+				  
+				} else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+					if(ua.match(/MicroMessenger/i)=="micromessenger") { 
+						resizes();
+						document.body.style.background="#fff";
+						document.getElementById("warn").style.display="block";
+						
+					}else{
+						if(width < 760){
+							document.body.style.background="url(./img/small.jpg) no-repeat";
+							document.body.style.backgroundSize="100% 100%";
+						  }else{
+							document.body.style.background="url(./img/big.jpg) no-repeat";
+							document.body.style.backgroundSize="100% 100%";
+						  }
+					}
+				  
+				}
+
+				//点击事件
+				var oBtn = document.getElementById("btnClick");
+				oBtn.onclick = function() {
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					  //alert(navigator.userAgent); 
+					  window.location.href ="http://static.jinkell.com/rescource/packages/daiqianma-ios-2.0.ipa";
+					} else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+					  //alert(navigator.userAgent); 
+					  window.location.href ="http://imtt.dd.qq.com/16891/D75E27359EB147033CD6EF08E505F23B.apk?fsname=com.jkl.loanmoney_1.1_2.apk&csr=1bbd";
+					}
+				}
+				
+				
+
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<button id="btnClick"></button>
+		<!--微信浏览器打开时的提示-->
+		<div id="warn">
+			<img src="./img/wexinHead.png" />
+			<img src="./img/weixinBody.png" />
+		</div>
+		<div id="warnU">
+			<img src="./img/wexinHead.png" />
+			<img src="./img/weixinBodyU.png" />
+		</div>
+		<br>
+	</body>
+
+</html>

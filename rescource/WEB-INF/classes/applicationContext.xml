@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	
+	<aop:aspectj-autoproxy />
+
+	<bean id="propertyConfigurerForAnalysis"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:/jdbc.properties</value>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- 連接池 -->
+	<!-- jdbc鏈接 proxool c3p0 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 池启动时创建的连接数量 -->
+        <property name="initialSize" value="30"/>
+        <!-- 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 -->
+        <property name="maxTotal" value="50"/>
+        <!-- 池里不会被释放的最多空闲连接数量。设置为0时表示无限制。 -->
+        <property name="maxIdle" value="150"/>
+        <!-- 在不新建连接的条件下，池中保持空闲的最少连接数。 -->
+        <property name="minIdle" value="10"/>
+        <!-- 设置自动回收超时连接 -->  
+        <property name="defaultAutoCommit" value="true" />
+        <!-- 自动回收超时时间(以秒数为单位) -->  
+        <property name="removeAbandonedTimeout" value="200"/>
+        <!-- 设置在自动回收超时连接的时候打印连接的超时错误  --> 
+        <property name="logAbandoned" value="true"/>
+		<property name="testOnBorrow" value="true"></property>
+		<property name="testOnReturn" value="true"></property>
+		<property name="testWhileIdle" value="true"></property>
+		<property name="validationQuery" value="SELECT 1"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="3600"></property> <!-- 检查无效连接的时间间隔 -->
+		<property name="minEvictableIdleTimeMillis" value="28700"></property>    <!-- 连接闲置的时间 -->
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	
+	<!-- 配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="edit*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="del*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="*" read-only="true" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 那些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:pointcut id="basePointct" expression="execution(* com.rescource.base.service.*.*.*(..))" />
+		<aop:pointcut id="pointct" expression="execution(* com.rescource.web.*.service.*.*(..))" />
+		<aop:advisor pointcut-ref="basePointct" advice-ref="txAdvice" />
+		<aop:advisor pointcut-ref="pointct" advice-ref="txAdvice" />
+	</aop:config>
+	
+	<!-- 数据库切面 -->
+	<bean id="db" class="org.expressme.simplejdbc.Db">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="packageName" value="com.rescource.pojo"/>
+	</bean>
+	
+	<!-- 开启注解配置 -->
+	<context:annotation-config />
+
+	<tx:annotation-driven />
+
+	<context:component-scan base-package="com.rescource.base.dao" />
+	<context:component-scan base-package="com.rescource.base.service" />
+	<context:component-scan base-package="com.rescource.web.*.dao" />
+	<context:component-scan base-package="com.rescource.web.*.service" />
+	
+	
+	
+	<!-- redis     -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+       <property name="maxIdle" value="${redis.maxIdle}" />    
+       <property name="maxTotal" value="${redis.maxActive}" />    
+       <property name="maxWaitMillis" value="${redis.maxWait}" />    
+       <property name="testOnBorrow" value="${redis.testOnBorrow}" />    
+   </bean>  
+     
+   <bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">  
+       <property name="hostName" value="${redis.host}" />  
+       <property name="port" value="${redis.port}" />
+       <property name="usePool" value="true" />  
+       <property name="poolConfig" ref="poolConfig" />  
+   </bean>  
+   
+   <!-- redis template definition     -->  
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+	
+    <property name="connectionFactory" ref="jedisConnFactory" />  
+    <property name="keySerializer">  
+        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />  
+    </property>     
+    <property name="valueSerializer">  
+        <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />  
+    </property>  
+    <property name="hashKeySerializer">    
+       <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>    
+    </property>  
+    <property name="hashValueSerializer">  
+       <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>    
+    </property>  
+	</bean>
+
+	
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+		<!-- 上传文件的最大值 10485760 -->
+		<property name="maxUploadSize" value="10485760"></property>
+		<!-- 缓存大小 -->
+		<property name="maxInMemorySize" value="10485760"></property>
+	</bean>
+	
+	<bean id="exceptionResolver"
+         class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+         <property name="exceptionMappings">
+            <props>
+                 <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到XXX页面 -->
+                 <prop
+                     key="org.springframework.web.multipart.MaxUploadSizeExceededException">index</prop>
+             </props>
+         </property>
+     </bean>
+     
+</beans>
+

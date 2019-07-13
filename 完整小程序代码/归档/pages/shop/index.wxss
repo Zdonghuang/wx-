@@ -1,0 +1,102 @@
+
+@import 'item.wxss';
+
+page {
+    padding-bottom: 30rpx;
+    background-color: #F2F2F2;
+}
+
+.header {
+    height: 30rpx;
+    line-height: 1;
+    padding: 25rpx 24rpx;
+    font-size: 30rpx;
+    color: #821822;
+    font-weight: 600;
+    position: relative;
+}
+
+.header text {
+    display: block;
+    float: left;
+}
+
+.header .recharge {
+    display: block;
+    height: 37rpx;
+    line-height: 37rpx;
+    padding: 0 15rpx;
+    border-radius: 8rpx;
+    color: #FFF;
+    background-color: #FA6620;
+    font-size: 24rpx;
+    position: relative;
+    top: -3rpx;
+    left: 10rpx;
+}
+
+.header .contact {
+    height: 28rpx;
+    line-height: 28rpx;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    font-size: 24rpx;
+    color: #9D9D9D;
+    float: right;
+}
+
+.header .contact::after {
+    border: none;
+}
+
+.header .values {
+    position: absolute;
+    top: 78rpx;
+    right: 0;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 540rpx;
+    height: 180rpx;
+    padding: 24rpx 30rpx;
+    border: 1rpx solid #DDD;
+    border-radius: 0 0 6rpx 6rpx;
+    box-shadow: 0 0 4rpx 4rpx #DDD;
+    background-color: #FFF;
+    z-index: 10;
+}
+
+.header .values text {
+    float: none;
+}
+
+.header .value {
+    width: 160rpx;
+    text-align: center;
+    line-height: 1.2;
+    padding: 10rpx 0;
+    border-radius: 8rpx;
+    background-color: #E7E7E7;
+    color: #209723;
+    font-size: 30rpx;
+}
+
+.header .value text {
+    font-size: 60%;
+}
+
+.item .start {
+    line-height: 1;
+    padding: 5px 20rpx;
+    background-color: #FA6620;
+    font-size: 27rpx;
+    color: #FFF;
+    border-radius: 8rpx;
+
+    position: absolute;
+    right: 18rpx;
+    top: 15rpx;
+}

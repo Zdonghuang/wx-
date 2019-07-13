@@ -1,0 +1,168 @@
+
+
+*{
+    margin:0;
+    padding:0;
+    font-family: "微软雅黑";
+}
+body{
+    max-width:640px;
+    margin:0 auto;
+}
+header{
+    background:url("../images/partOne.png") no-repeat;
+    height: 6rem;
+    max-height:519px;
+    width:100%;
+    background-size: 100% 100%;
+    position: relative;
+}
+section{
+    background:url("../images/partTwo.png") no-repeat;
+    height: 4.2rem;
+    max-height:422px;
+    width:100%;
+    background-size: 100% 100%;
+}
+footer{
+    background:url("../images/partThree.png") no-repeat;
+    height: 7.8rem;
+    width:100%;
+    background-size: 100% 100%;
+}
+input::-webkit-input-placeholder{
+	font-size:.28rem;
+}
+input{
+	vertical-align:middle;
+}
+header h1{
+    text-align: center;
+    color:#fff;
+    font-size:0.6rem;
+    padding-top:0.2rem;
+}
+header h1 i{
+    font-size:0.8rem;
+}
+.findMoney{
+    margin:0.25rem auto;
+    width:3.2rem;
+    height:0.4rem;
+    line-height:0.4rem;
+    text-align: center;
+    border-radius: 0.6rem;
+    background: #ffea9e;
+    padding:0.1rem 0;
+    color:#c70102;
+    font-weight: 600;
+    font-size:0.32rem;
+}
+.threePart{
+    width:94%;
+    margin:0 auto;
+    position: absolute;
+    bottom:0.2rem;
+    left:3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.threePart .part{
+    width:30%;
+    text-align: center;
+    height:38px;
+    line-height: 38px;
+    background: #fe720c;
+    border-radius:.5rem;
+}
+.threePart .part dd{
+    width:32px;
+    height:32px;
+    line-height: 32px;
+    float: left;
+    border-radius: 16px;
+    background: #ecd472;
+    border:1px solid #ff9345;
+    color:#fe720c;
+    margin:2px;
+}
+.threePart .part span{
+    color:#fff;
+    padding-right: .1rem;
+    font-size:.26rem;
+}
+.width{
+    width:80%;
+    margin:0 10%;
+}
+.formS{
+    position: relative;
+}
+.formS input{
+    width:95%;
+    height:.8rem;
+    line-height: .8rem;
+    border-radius:.4rem;
+    border:none;
+    padding-left:5%;
+    margin-top:.2rem;
+    font-size:.28rem;
+}
+input,button{
+    outline: none;
+}
+.formS #btn{
+    position: absolute;
+    width:2.3rem;
+    min-width:130px;
+    right:0px;
+    top:1.2rem;
+    float: right;
+    height:.8rem;
+    line-height: .8rem;
+    text-align: center;
+    background: #fd7801;
+    border-radius:.4rem;
+    border:none;
+    color:#fff;
+    font-size:0.31rem;
+}
+.formS .submit{
+    width:70%;
+    margin-left:15%;
+    margin-top:20px;
+    background: url("../images/register.png") no-repeat;
+    background-size:100% 100%;
+}
+.threepags{
+    background: #fff;
+    border-radius: 10px;
+    padding:.2rem 0;
+}
+.fastFour{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    line-height: 1.14rem;
+    font-size:.3rem;
+    padding:.2rem 0;
+}
+.fastFour img{
+    width:1.2rem;
+    height:1.14rem;
+    margin-left: -5px;
+}
+.footers{
+    text-align: center;
+    line-height: .45rem;
+    font-size:.28rem;
+    color:#fff;
+    margin-top: .4rem;
+}
+.footers a{
+    text-decoration: none;
+    color:#fff;
+}
+
+

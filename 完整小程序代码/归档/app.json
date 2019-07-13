@@ -1,0 +1,17 @@
+
+{
+    "pages": [
+        "pages/shop/index",
+        "pages/shop/detail",
+        "pages/shop/game"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#FFF",
+        "navigationBarTitleText": "摸宝商城",
+        "navigationBarTextStyle": "black",
+        "backgroundColor": "#F2F2F2"
+    },
+    "usingComponents": {
+        "share": "/components/shareSheet/index"
+    }
+}

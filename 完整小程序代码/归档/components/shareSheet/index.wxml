@@ -1,0 +1,7 @@
+
+<view class="share-mask {{!hidden ? 'up' : ''}}" hidden="{{hidden}}"></view>
+<view class="share-list {{up ? 'up' : ''}}">
+    <button open-type="share" class="share-item" catch:tap="cancel">邀请微信好友</button>
+    <!-- <button catch:tap="share" class="share-item">分享朋友圈</button> -->
+    <button class="share-cancel" catch:tap="cancel">取消</button>
+</view>

@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>交易记录</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+
+<body>
+  <div id="app">
+    <!-- 头部 -->
+    <div class="checkTop">
+      <a href="http://static.jinkell.com/rescource/recharge-ios/html/recharge.html"><img src="../img/arrow_left2@2x.png"></a>
+      <div class="check">交易记录</div>
+    </div>
+    <!-- 导航栏 -->
+    <header class="records">
+      <ul>
+        <li :class="{isActive:isCurrent}" @click="recordsC"><span>充值记录</span><i></i></li>
+        <li :class="{isActive:!isCurrent}" @click="recordsX"><span>消费记录</span><i></i></li>
+      </ul>
+    </header>
+    <!-- 具体状态信息部分 -->
+    <section v-show="isCurrent" class="recordsSec">
+      <div class="reTitles">
+        <p>充值600元</p>
+        <p>当前状态：充值成功</p>
+        <p>充值方式：支付宝</p>
+        <p>充值时间：2018/07/08 10:34:55</p>
+        <p>订单号：</p>
+      </div>
+    </section>
+    <section v-show="!isCurrent" class="recordsSec">
+      <div class="reTitles">
+        <p>消费600元</p>
+        <p>当前状态：消费成功</p>
+        <p>消费方式：支付宝</p>
+        <p>消费时间：2018/07/08 10:34:55</p>
+        <p>订单号：</p>
+      </div>
+    </section>
+    <!-- 以下为修改前的排版 -->
+    <!-- <section v-show="isCurrent" class="recordsSec">
+      <div class="reTitles" v-for="(list,index) in lists" :key="index">
+        <p v-if="index==0 || list.createTime.slice(0,7) != lists[index-1].createTime.slice(0,7)">
+          {{list.createTime.slice(0,4)}}年{{list.createTime.slice(5,7)}}月
+        </p>
+        <ol>
+          <li>
+            <span>{{list.createTime.slice(0,16)}}&nbsp;&nbsp;{{list.remark}}</span>
+          </li>
+        </ol>
+      </div>
+      <p class="loadMore" @click="getMore" v-show="czLoad">{{loadText}}</p>
+    </section>
+    <section v-show="!isCurrent" class="recordsSec">
+      <div class="reTitles" v-for="(list,index) in lists2" :key="index">
+        <p v-if="index==0 || list.createTime.slice(0,7) != lists2[index-1].createTime.slice(0,7)">
+          {{list.createTime.slice(0,4)}}年{{list.createTime.slice(5,7)}}月
+        </p>
+        <ol>
+          <li>
+            <span>{{list.createTime.slice(0,16)}}&nbsp;&nbsp;{{list.remark}}</span>
+          </li>
+        </ol>
+      </div>
+      <p class="loadMore" v-show="xfLoad" @click="getMore2">{{loadText2}}</p>
+    </section> -->
+    <!--loading-->
+    <!-- <div class="loading" v-show="isLoading">
+      <div class="wx_loading_icon"></div>
+    </div> -->
+    <!--无数据时提示-->
+    <p class="loadMore" v-show="isNullCZ">暂无充值记录哦</p>
+    <p class="loadMore" v-show="isNullXF">暂无消费记录哦</p>
+
+  </div>
+</body>
+<script type="text/javascript" src="../js/rem.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../js/axios.min.js"></script>
+<script type="text/javascript" src="../js/md5.min.js"></script>
+<script>
+  var userIds = localStorage.getItem("userIds");
+  //		var userIds="fea4e41fa81c4264aad9cb095772e5eb";
+  var tokens = localStorage.getItem("tokens");
+  //		var tokens="ZmY0NDg5OTMxNzQ0NGNkZjkwODMzMzZlOTc4MjM1ZmMxNTMwMDA3ODIx";
+  var deviceNumber = localStorage.getItem("deviceNumber");
+  //		var deviceNumber="357710186792243";
+
+  new Vue({
+    el: "#app",
+    data: {
+      isCurrent: true,
+      isLoading: true,
+      czLoad: false,
+      xfLoad: false,
+      isNullCZ: false,
+      isNullXF: false,
+      loadText: '点击加载更多',   //点击加载更多的文案
+      loadText2: '点击加载更多',   //点击加载更多的文案
+      postUrl: "http://youdaikeshop.cn/loan",
+      page2: 1,
+      page: 1,
+      lists: [],
+      lists2: [],
+    },
+    created() {
+      this.getData(1);
+    },
+    methods: {
+      recordsC() {
+        this.isCurrent = true;
+        this.isNullXF = false;
+        this.getData(1);
+      },
+      recordsX() {
+        this.isCurrent = false;
+        this.isNullCZ = false;
+        this.getData2(2);
+      },
+      getData(type) {
+        var self = this;
+        var params = "userId=" + userIds + "&nonceStr=" + new Date().getTime() + "&deviceNumber=" + deviceNumber +
+          "&type=" + type + "&pageNum=" + this.page + "&pageSize=" + 10;
+        var urls = params.split("&").sort().join("&");
+        var signZh = md5(urls + "&token=" + tokens).toUpperCase();
+        this.isLoading = true;
+        axios.get(this.postUrl + "/app/managerOrder/managerGoldRecordList.htm?sign=" + signZh + "&" + params)
+          .then(function (data) {
+            //						console.log(data);
+            if (data.status == 200) {
+              let nums = data.data.result.count;
+              let listL = data.data.result.list;
+              //							console.log(self.lists2[0]);
+              if (nums > 10) {
+                self.czLoad = true;
+              }
+              if (nums == 0) {
+                self.isNullCZ = true;
+              } else {
+                //数据数量小于一页的数量是，更改文案
+                if ((nums - 10 * (self.page - 1)) <= 10) {
+                  self.loadText = '没有数据了';
+                } else {
+                  self.loadText = "点击加载更多";
+                }
+                //把数据push进去
+                for (var i = 0; i < listL.length; i++) {
+                  self.lists.push(listL[i]);
+                }
+              }
+              self.isLoading = false;
+              self.page++;
+
+            }
+          }).catch(err => err);
+      },
+      getData2(type) {
+        var self = this;
+        this.isLoading = true;
+        var params = "userId=" + userIds + "&nonceStr=" + new Date().getTime() + "&deviceNumber=" + deviceNumber +
+          "&type=" + type + "&pageNum=" + this.page2 + "&pageSize=" + 10;
+        var urls = params.split("&").sort().join("&");
+        var signZh = md5(urls + "&token=" + tokens).toUpperCase();
+        this.isLoading = true;
+        axios.get(this.postUrl + "/app/managerOrder/managerGoldRecordList.htm?sign=" + signZh + "&" + params)
+          .then(function (data) {
+            //						console.log(data);
+            if (data.status == 200) {
+              let nums = data.data.result.count;
+              let listL = data.data.result.list;
+              //							console.log(self.lists2[0]);
+              if (nums > 10) {
+                self.xfLoad = true;
+              }
+              console.log(listL.length);
+              if (nums == 0) {
+                self.isNullXF = true;
+              } else {
+                //数据数量小于一页的数量是，更改文案
+                if ((nums - 10 * (self.page2 - 1)) <= 10) {
+                  self.loadText2 = '没有数据了';
+                } else {
+                  self.loadText2 = "点击加载更多";
+                }
+                //把数据push进去
+                for (var i = 0; i < listL.length; i++) {
+                  self.lists2.push(listL[i]);
+                }
+              }
+              self.isLoading = false;
+              self.page2++;
+
+            }
+          });
+      },
+      getMore() {
+        //如果状态为正在加载中，返回，什么也不做
+        if (this.isLoading) {
+          return;
+        } else {
+          this.loadText = '正在加载中···';
+          this.getData(1);
+          this.isLoading = true;
+        }
+      },
+      getMore2() {
+        //如果状态为正在加载中，返回，什么也不做
+        if (this.isLoading) {
+          return;
+        } else {
+          this.loadText2 = '正在加载中···';
+          this.getData2(2);
+          this.isLoading = true;
+        }
+      }
+
+    }
+  });
+</script>
+
+</html>

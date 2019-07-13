@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>邀请好友奖励规则</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script>
+		//rem 单位使用
+		(function() {
+		    var newRem = function() {
+		        var html = document.documentElement;
+		        html.style.fontSize = html.getBoundingClientRect().width / 10 + 'px';
+		    };
+		    window.addEventListener('resize', newRem, false);
+		    newRem();
+		})();
+	</script>
+	<style scoped="scoped">
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: "微软雅黑";
+		}
+		body{
+			background: #fffae3;
+		}
+		#app{
+			width:94%;
+			margin-left:3%;
+		}
+		font{
+			margin:0.4rem 0;
+			font-size:0.4rem;
+			color:#666;
+		}
+		.rule{
+			font-size: .35rem;
+			border-bottom: 1px solid #ccc;
+			padding:0.25rem 0.64rem;
+			color:#666;
+		}
+		.rule:nth-of-type(1){
+			border-top: 1px solid #ccc;
+			margin-top:0.3rem;
+		}
+		.rule img{
+			width:20%;
+			position: relative;
+			top:0.08rem;
+			left:0.1rem;
+			max-width:39px;
+		}
+		.rule span:nth-of-type(2){
+			float: right;
+			text-align: right;
+		}
+		.warn{
+			color:#fe881f;
+			font-size:0.35rem;
+			margin:0.16rem 0.3rem;
+		}
+		.red{
+			color: #ef565a;
+		}
+		.content{
+			background: #fff;
+			font-size:.35rem;
+			padding:0.5rem;
+			color:#666;
+			margin:0.32rem auto;
+		}
+		.content p{
+			line-height: 0.64rem;
+		}
+		
+	</style>
+	</head>
+	<body>
+		<div id="app">
+			<font>一、奖励说明</font>
+			<div class="rule" v-for="item in rules">
+				<span>{{item.title1}}</span>
+				<span>{{item.title2}} <img src="./img/money.png"></span>
+			</div>
+			<p class="warn">注：该奖励仅限达到邀请好友奖励规则即可获得</p>
+			
+			<font>二、活动规则<span class="red">（双方至少充值一次）</span></font>
+			<div class="content">
+				<p v-for="item in contents">{{item.cont}}</p>
+			</div>
+			
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				rules:[
+					{id:1,title1:"邀请1位好友",title2:"奖励10金币"},
+					{id:2,title1:"邀请2位好友",title2:"奖励20金币"},
+					{id:3,title1:"邀请3位好友",title2:"奖励30金币"},
+					{id:4,title1:"邀请4位好友",title2:"奖励60金币"},
+					{id:5,title1:"邀请5位好友",title2:"奖励80金币"},
+					{id:6,title1:"邀请更多好友",title2:"均奖励80金币"}
+				],
+				contents:[
+					{id:1,cont:"1、好友必须通过你的专属链接（或二维码），下载并成功注册认证（注册时需填写推荐人手机号），才算你的有效邀请客户；"},
+					{id:2,cont:"2、发现如有违反该活动规则，取消其奖励资格；"},
+					{id:3,cont:"3、活动每个月都做清零处理。"},
+				]
+			}
+		});
+	</script>
+</html>

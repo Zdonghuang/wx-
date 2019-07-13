@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>选择充值方式</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .info {
+      background: #fff;
+      height: 4rem;
+      padding: .2rem .8rem 0;
+    }
+
+    .info p {
+      margin: .4rem 0px;
+      font-size: .5rem;
+      color: #333;
+    }
+
+    .info p:first-child {
+      color: #444;
+      font-size: .4rem;
+    }
+
+    .info .moneyInfo span {
+      color: #555;
+      font-size: .5rem;
+    }
+
+    .info .moneyInfo {
+      color: #999;
+      font-size: .6rem;
+      margin-right: 1rem;
+    }
+
+    p {
+      margin: .4rem 0px;
+    }
+
+    .xieyi img {
+      width: .4rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="checkTop">
+      <a href="http://static.jinkell.com/rescource/recharge-ios/html/recharge.html"><img src="../img/arrow_left2@2x.png"></a>
+      <div class="check">充值提交</div>
+    </div>
+    <div class="info">
+      <p>订单信息</p>
+      <p><span class="moneyInfo">应付金额:</span>￥{{money}} </p>
+      <p><span class="moneyInfo">订单信息:</span> 充值{{money}}金币</p>
+    </div>
+    <header class="checkways">选择支付方式</header>
+    <section>
+      <div class="checkes" v-for="(list,index) in lists" :key="list.id" @click="checks(index)">
+        <img :src="list.src" />
+        <span>{{list.content}}</span>
+        <img v-if="list.isCheck" src="../img/iocn_gou_selected@3x.png" />
+        <img v-else src="../img/check.png" />
+      </div>
+      <p class="xieyi">
+        <img v-if="isChecked" src="../img/iocn_gou_selected@3x.png" />
+        <img v-else src="../img/check.png" @click="checked" /> 我已阅读并同意遵守
+        <a href="http://static.jinkell.com/rescource/rechargeProtocol.html">《充值协议》</a>，并愿意承担相关风险
+      </p>
+      <div class="arset">
+        <span @click="goPay">立即支付</span>
+      </div>
+
+    </section>
+    <!--loading-->
+    <div class="loading" v-show="isLoading">
+      <div class="wx_loading_icon"></div>
+    </div>
+    <!--支付成功弹窗提示-->
+    <!--<div class="successDia">-->
+    <div class="loading" v-show="isSuccess"></div>
+    <div class="contentCW" v-show="isSuccess">
+      <img src="../img/pic_chongzhiwc.png" />
+      <p>您本次充值的{{money}}金币与赠送的金币均已到账</p>
+      <img src="../img/ico_guanbinn.png" @click="closeDia" />
+    </div>
+    <!--</div>-->
+
+  </div>
+</body>
+<script type="text/javascript" src="../js/rem.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../js/axios.min.js"></script>
+<script type="text/javascript" src="../js/md5.min.js"></script>
+<script>
+  var userIds = localStorage.getItem("userIds");
+  //		var userIds="fea4e41fa81c4264aad9cb095772e5eb";
+  var tokens = localStorage.getItem("tokens");
+  //		var tokens="ZmY0NDg5OTMxNzQ0NGNkZjkwODMzMzZlOTc4MjM1ZmMxNTMwMDA3ODIx";
+  var deviceNumber = localStorage.getItem("deviceNumber");
+  //		var deviceNumber="357710186792243";
+
+  new Vue({
+    el: "#app",
+    data: {
+      isChecked: false,
+      checkType: "",
+      money: "",
+      index: "0",
+      isLoading: false,
+      isSuccess: false,
+      postUrl: "http://youdaikeshop.cn/loan",
+      lists: [
+        //					{id:"1",src:"../img/ico_zhifuweixin.png",content:"微信",isCheck:true},
+        { id: "2", src: "../img/icon_chongzhitijiao_zhifubao@2x.png", content: "支付宝", isCheck: true },
+        { id: "3", src: "../img/icon_chongzhitijiao_lianlian@2x.png", content: "连连支付", isCheck: false },
+      ],
+    },
+    created() {
+      //获取充值类型
+      this.checkType = localStorage.getItem("checkId");
+      this.money = localStorage.getItem("money");
+    },
+    methods: {
+      checks(index) {
+        for (var i = 0; i < this.lists.length; i++) {
+          this.lists[i].isCheck = false;
+        }
+        this.lists[index].isCheck = true;
+        this.index = index;
+      },
+      goPay() {
+        //					if(this.index == "0"){//微信
+        //						
+        //					}else 
+
+        var params = "userId=" + userIds + "&nonceStr=" + new Date().getTime() + "&deviceNumber=" + deviceNumber +
+          "&goldDepositsId=" + this.checkType + "&payWay=" + 4 + "&payEnvironment=" + 1;
+        var params2 = "userId=" + userIds + "&nonceStr=" + new Date().getTime() + "&deviceNumber=" + deviceNumber +
+          "&goldDepositsId=" + this.checkType + "&payWay=" + 6 + "&payEnvironment=" + 1;
+        var urls = params.split("&").sort().join("&");
+        var urls2 = params2.split("&").sort().join("&");
+        var signZh = md5(urls + "&token=" + tokens).toUpperCase();
+        var signLL = md5(urls2 + "&token=" + tokens).toUpperCase();
+        if (this.index == "0") {//支付宝
+          //						var urls=this.postUrl+"/payment/managerRechange/creatPayOrderForH5.htm?userId="+userIds+"&goldDepositsId="
+          //						+this.checkType+"&payWay=4&payEnvironment=1";
+          var urls = this.postUrl + "/payment/managerRechange/creatPayOrderForH5.htm?sign=" + signZh + "&" + params;
+          console.log(urls);
+          window.location.href = urls;
+        } else {//连连支付
+          //						var urls2=this.postUrl+"/payment/managerRechange/creatPayOrderForH5.htm?userId="+userIds+"&goldDepositsId="
+          //						+this.checkType+"&payWay=6&payEnvironment=1";
+          var urls2 = this.postUrl + "/payment/managerRechange/creatPayOrderForH5.htm?sign=" + signLL + "&" + params2;
+          console.log(urls2);
+          window.location.href = urls2;
+        }
+      },
+      closeDia() {
+        this.isSuccess = false;
+      },
+      // 协议是否被选中
+      checked() {
+        this.isChecked = true;
+      }
+    }
+  });
+</script>
+
+</html>

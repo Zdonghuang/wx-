@@ -1,0 +1,26 @@
+.action {
+    width: 750rpx;
+    height: 90rpx;
+    text-align: center;
+    line-height: 90rpx;
+    font-size: 30rpx;
+    color: #FFF;
+    display: flex;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.action text {
+    display: block;
+    flex: 1;
+}
+
+.action .join {
+    background-color: #fd6621;
+}
+
+.action .share {
+    background-color: #199ed6;
+}

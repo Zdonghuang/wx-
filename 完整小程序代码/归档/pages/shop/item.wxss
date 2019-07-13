@@ -1,0 +1,42 @@
+
+.item {
+    margin-bottom: 30rpx;
+    background-color: #FFF;
+    position: relative;
+}
+
+.item:last-child {
+    margin-bottom: 0;
+}
+
+.item image {
+    width: 750rpx;
+    height: 375rpx;
+    vertical-align: middle;
+}
+
+.item .meta {
+    height: 120rpx;
+    line-height: 1;
+    padding: 0 24rpx;
+    font-size: 24rpx;
+    color: #333;
+}
+
+.item .meta text {
+    display: block;
+    margin-top: 18rpx;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item .meta .wrap {
+    display: flex;
+    font-size: 18rpx;
+    color: #A9A9A9;
+}
+
+.item .wrap text {
+    margin-right: 10rpx;
+}

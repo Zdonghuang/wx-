@@ -1,0 +1,166 @@
+
+page {
+    height: 100%;
+    background-color: #FFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    display: block;
+    line-height: 1;
+    padding: 25rpx 24rpx;
+    font-size: 30rpx;
+    color: #821822;
+    font-weight: 600;
+    background-color: #F2F2F2;
+}
+
+.play {
+    width: 330rpx;
+    height: 330rpx;
+    text-align: center;
+    line-height: 330rpx;
+    margin: 150rpx auto 0;
+    color: #FFF;
+    background-color: #97040C;
+    border-radius: 50%;
+    font-size: 66rpx;
+}
+
+.hover {
+    background-color: #bc0a14;
+}
+
+.result {
+    width: 750rpx;
+    height: 600rpx;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.result .h3 {
+    display: block;
+    height: 144rpx;
+    padding-left: 160rpx;
+    line-height: 144rpx;
+    margin: 60rpx 0;
+    font-size: 69rpx;
+    font-weight: 600;
+    color: #333;
+    background-image: url(http://mobao.botue.com/assets/images/fail.jpg);
+    background-repeat: no-repeat;
+    background-size: 144rpx;
+}
+
+.result .data {
+    width: 600rpx;
+    height: 240rpx;
+    text-align: center;
+    padding-top: 69rpx;
+    background-color: #996414;
+    border-radius: 8rpx;
+}
+
+.result .data text {
+    display: block;
+    font-size: 27rpx;
+    line-height: 1.5;
+    color: #F4F4F4;
+}
+
+.result .data .duration {
+    margin-bottom: 5rpx;
+    font-size: 40rpx;
+    font-weight: 600;
+    color: #FFF;
+}
+
+.win .h3 {
+    font-size: 110rpx;
+    background-image: url(http://mobao.botue.com/assets/images/win.jpg);
+}
+
+.win .data {
+    padding-top: 96rpx;
+    background-color: #159818;
+}
+
+.win .data text {
+    font-size: 51rpx;
+    font-weight: 600;
+}
+
+.win .data .duration {
+    font-size: 42rpx;
+}
+
+.post .h2 {
+    margin: 40rpx 0;
+    font-size: 100rpx;
+}
+
+.post .data {
+    padding: 24rpx 48rpx;
+    background-color: #159818;
+    color: #FFF;
+    box-sizing: border-box;
+}
+
+.post .data text {
+    font-size: 45rpx;
+}
+
+.address {
+    width: 750rpx;
+    font-size: 27rpx;
+
+    position: absolute;
+    top: 600rpx;
+    left: 0;
+}
+
+.address text {
+    display: block;
+    line-height: 1;
+    margin: 40rpx 30rpx 20rpx;
+    font-size: 30rpx;
+    font-weight: 600;
+}
+
+.address label {
+    display: block;
+    padding: 0 30rpx;
+    border-bottom: 1px solid #E7E7E7;
+}
+
+.address form {
+    display: block;
+}
+
+.address input,
+.address select {
+    height: 80rpx;
+}
+
+.address button {
+    height: 90rpx;
+    line-height: 90rpx;
+    margin: 40rpx 40rpx 0;
+    font-size: 33rpx;
+    color: #FFF;
+    background-color: #199ed6;
+    /*border-radius: 0;*/
+}
+
+.address button::after {
+    border: 0 none;
+}
+
+@import 'action.wxss';

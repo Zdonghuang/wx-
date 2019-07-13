@@ -1,0 +1,6 @@
+
+{
+    "usingComponents": {
+        "share-list": "/components/shareSheet/index"
+    }
+}

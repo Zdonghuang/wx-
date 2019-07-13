@@ -1,0 +1,43 @@
+
+<scroll-view scroll-y>
+    <view class="item">
+        <image src="{{item.cover}}"></image>
+        <view class="meta">
+            <text>{{item.name}}</text>
+            <text>参考价: ¥{{item.cost}}元</text>
+            <view class="wrap">
+                <text>挑战价格: ¥{{item.price}}元/次</text>
+                <text>免费挑战: {{item.stimes}}次</text>
+            </view>
+        </view>
+    </view>
+
+    <view class="rules">
+        <view class="intro">
+            <text>游戏名称: 按出1秒</text>
+            <text>游戏规则: 用手指按住红色按钮1秒，然后抬起，如果正好按出1秒，视为挑战成功，填写邮寄地址，奖品当天寄出；否则挑战失败。</text>
+            <view class="extra">
+                <text class="btn">按住</text>
+                <text class="count">已有{{item.total}}人参加该挑战</text>
+            </view>
+        </view>
+        <view class="win">
+            <text>挑战成功: 挑战成功后，会出现如下界面，填写邮寄地址，我们会在两个工作日内将您挑战成功的奖品邮寄出。</text>
+            <image src="http://mobao.botue.com/uploads/win.png"></image>
+        </view>
+        <view class="fail">
+            <text>挑战失败: 挑战成功后，会出现如下界面，欢迎重新挑战，您也可以将奖品分享给朋友，获得免费挑战次数。</text>
+            <image src="http://mobao.botue.com/uploads/fail.png"></image></view>
+        <view class="share">
+            <text>分享免费玩：您可以将奖品分享给朋友，每多一个朋友点击进入，您就可以获得一次免费挑战该商品的机会，比如您将该商品分享到微信群，群里有3个朋友点击了，您可以获得3次免费挑战机会。</text>
+        </view>
+    </view>
+    <view class="blank"></view>
+</scroll-view>
+
+<view class="action">
+    <text class="join" bind:tap="play" data-ptimes="{{item.ptimes}}" data-stimes="{{item.stimes}}" data-gid="{{item.id}}" data-cost="{{item.cost}}" data-price="{{item.price}}">我也要挑战</text>
+    <text class="share" catch:tap="share">分享免费玩</text>
+</view>
+
+<share-list hidden="{{share}}"></share-list>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>优贷客介绍</title>
+	<script>
+		//rem 单位使用
+		(function() {
+		    var newRem = function() {
+		        var html = document.documentElement;
+		        html.style.fontSize = html.getBoundingClientRect().width / 10 + 'px';
+		    };
+		    window.addEventListener('resize', newRem, false);
+		    newRem();
+		})();
+	</script>
+	<style scoped="scoped">
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: "微软雅黑";
+		}
+		#app{
+			width:94%;
+			margin-left:4%;
+		}
+		.titleL{
+		    color: #000;
+            font-size: 0.56rem;
+            margin: 0.18rem 0;
+		}
+		p{
+			font-size: 0.4rem;
+			
+			line-height: 0.7rem;
+			color:#000;
+		}
+		span{
+			font-weight: bold;
+		}
+		.advantage{
+			font-weight: bold;
+            font-size: 0.44rem;
+            margin: 0.06rem 0;
+		}
+	</style>
+	</head>
+	<body>
+		<div id="app"> 
+							
+			<h5 class="titleL" style="margin-top:20px;">公司介绍</h5>
+			<p>优贷客抢单是一款专门协助信贷经理轻松获取客户、管理客户、跟踪客户、提升业绩的移动智能APP，
+				所有入住优贷客平台的信贷经理均来自于银行、P2P平台等各大金融机构，
+				免费为贷款用户提供专业的贷款咨询及服务。</p>
+			
+			<h5 class="titleL">产品特色</h5>
+			<p><span>多</span>: 订单实时推送，海量客户等你来抢；</p>
+			<p><span>快</span>: 一键点击，立即获取；</p>
+			<p><span>好</span>: 客户信息独立所有，享有独立跟踪客户的权利；</p>
+			<p><span>省</span>: 无效订单智能审核，快速退款；</p>
+			<p><span>高</span>: 订单实时人工审核，成单率高；</p>
+			
+			<h5 class="titleL">产品优势</h5>
+			<p class="advantage">一键点击、快速获客</p>
+			<p>轻松开发一手客户，减少获客时间；</p>
+			<p  class="advantage">实时跟踪、订单反馈</p>
+			<p>实时反馈订单状态，客户信息一目了然；</p>
+			<p  class="advantage">信息真实、精准匹配</p>
+			<p>所有贷款人的信息都是经过实名认证和手机号验证、人工审核完成，保证订单真实有效，客户分类清晰全面，帮助信贷经理匹配最合适的贷款客户，做到双方匹配。</p>
+			<br />
+			
+		</div>
+	</body>
+</html>

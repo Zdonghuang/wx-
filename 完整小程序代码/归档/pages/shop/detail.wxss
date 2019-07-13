@@ -1,0 +1,87 @@
+
+@import 'item.wxss';
+
+page {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+}
+
+scroll-view {
+    height: 100%;
+}
+
+.blank {
+    height: 150rpx;
+}
+
+.item {
+    margin-top: 8rpx;
+    margin-bottom: 0;
+}
+
+.rules {
+    flex: 1;
+    line-height: 1.5;
+    border-top: 1rpx solid #E7E7E7;
+    background-color: #FFF;
+    font-size: 24rpx;
+    color: #333;
+}
+
+.rules view {
+    padding: 24rpx;
+}
+
+.rules .win {
+    border-top: 1rpx solid #E7E7E7;
+    border-bottom: 1rpx solid #E7E7E7;
+}
+
+.rules text {
+    display: block;
+}
+
+.rules image {
+    display: block;
+    width: 540rpx;
+    height: 864rpx;
+    margin: 20rpx auto;
+    border: 1rpx solid #EFEFEF;
+}
+
+.rules .extra {
+    display: flex;
+    height: 200rpx;
+    position: relative;
+}
+
+.rules .btn {
+    width: 160rpx;
+    height: 160rpx;
+    text-align: center;
+    line-height: 160rpx;
+    margin: auto;
+    border-radius: 50%;
+    background-color: #97040C;
+    font-size: 27rpx;
+    color: #FFF;
+}
+
+.rules .count {
+    font-size: 24rpx;
+    color: #A7A7A7;
+    position: absolute;
+    right: 0;
+    bottom: 48rpx;
+}
+
+.rules .share {
+    border-top: 1px solid #E7E7E7;
+    border-bottom: 1px solid #E7E7E7;
+}
+
+@import 'action.wxss';

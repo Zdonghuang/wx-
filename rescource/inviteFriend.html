@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>邀请好友奖励规则</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    //rem 单位使用
+    (function () {
+      var newRem = function () {
+        var html = document.documentElement;
+        html.style.fontSize = html.getBoundingClientRect().width / 10 + 'px';
+      };
+      window.addEventListener('resize', newRem, false);
+      newRem();
+    })();
+  </script>
+  <style scoped="scoped">
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "微软雅黑";
+      list-style: none;
+    }
+
+    body {
+      background: #e2e3f6;
+    }
+
+    #app {
+      width: 100%;
+      padding-bottom: 1rem;
+    }
+
+    .checkTops {
+      text-align: center;
+      color: #222;
+      font-size: .66rem;
+      height: 1.4rem;
+      line-height: 1.4rem;
+      background: #fff;
+      padding-left: .5rem;
+      box-sizing: border-box;
+      padding-right: 1rem;
+    }
+
+    .checkTops .check {
+      width: 100%;
+      font-weight: 600;
+    }
+
+    .checkTops a {
+      background: url(./img/arrow_left2.png) no-repeat 0 0 / 0.2rem .4rem;
+      color: #333;
+      float: left;
+      display: block;
+      width: .2rem;
+      height: .4rem;
+      margin-top: .5rem;
+    }
+
+    .picture {
+      height: 6.98rem;
+    }
+
+    .picture img {
+      height: 100%;
+    }
+
+    .content {
+      position: relative;
+    }
+
+    .roles {
+      width: 90%;
+      margin: 0 .1rem;
+      font-size: .45rem;
+      position: absolute;
+      left: .4rem;
+      top: 6rem;
+      background: #fff;
+      color: #666;
+    }
+
+    .title {
+      font-size: .6rem;
+      color: #333;
+      font-weight: 600;
+      height: 1rem;
+      line-height: 1rem;
+      border-bottom: 4px solid #f2ab05;
+      display: inline-block;
+      margin-left: 3.3rem;
+      margin-bottom: .4rem;
+      margin-top: .4rem;
+    }
+
+    .roles li {
+      height: 1.2rem;
+      line-height: 1.1rem;
+      padding: 0 .2rem;
+    }
+
+    font {
+      font-size: 0.6rem;
+      font-weight: 500;
+    }
+
+    .roles li:nth-child(2n-1) {
+      background: url('./img/inviteLine.png') no-repeat 0 0 / 9.8rem 2rem;
+    }
+
+    .roles li:last-child,
+    .roles li:nth-child(6) {
+      font-size: 0.37rem;
+      padding: 3px;
+    }
+
+    .roles li:last-child {
+      padding: 0 .2rem;
+    }
+
+    .roles li span:first-child {
+      float: left;
+    }
+
+    .roles li span:last-child {
+      float: right;
+    }
+
+    .rolesJl {
+      margin-top: 9.7rem;
+      background: #fff;
+      width: 90%;
+      margin-left: .5rem;
+      font-size: .3rem;
+      color: #f4b845;
+    }
+
+    .rolesJl .box>span {
+      font-size: .4rem;
+      display: inline-block;
+      width: 32%;
+      text-align: center;
+    }
+
+    .rolesJl .box>span>span {
+      font-size: .33rem;
+    }
+
+    .rolesJl .box>span:first-child {
+      margin-left: 4px;
+    }
+
+    .rolesJl .box i {
+      display: block;
+      height: 3rem;
+      line-height: 2rem;
+      font-size: 1rem;
+      font-style: normal;
+      background: url(./img/iviteSquer.png) no-repeat 0 0 / 2.6rem 2.3rem;
+      margin-top: .2rem;
+      margin-left: .2rem;
+    }
+
+    .rolesAc {
+      margin-top: .4rem;
+      font-size: .44rem;
+      color: #666;
+      box-sizing: border-box;
+      padding-top: .2rem;
+      padding-bottom: .4rem;
+    }
+
+    .rolesAc p+p {
+      margin-bottom: .2rem;
+      padding-left: .2rem;
+    }
+
+    input {
+      width: 90%;
+      height: 1.6rem;
+      background: #fcde69;
+      color: #5c1e07;
+      font-size: .8rem;
+      border: none;
+      margin: .6rem 0;
+      margin-left: .4rem;
+      border-radius: 1rem;
+      font-weight: 550;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="checkTops">
+      <a href="#"></a>
+      <div class="check">邀请好友</div>
+    </div>
+    <div class="content">
+      <div class="picture">
+        <img src="./img/inviteTop.png" alt="">
+      </div>
+      <div class="roles">
+        <span class="title">奖励说明</span>
+        <ul>
+          <li><span>邀请1位好友</span><span>奖励<font style="color:#f2ab05">10</font>金币</span></li>
+          <li><span>邀请2位好友</span><span>奖励<font style="color:#f2ab05">20</font>金币</span></li>
+          <li><span>邀请3位好友</span><span>奖励<font style="color:#f2ab05">30</font>金币</span></li>
+          <li><span>邀请4位好友</span><span>奖励<font style="color:#f2ab05">60</font>金币</span></li>
+          <li><span>邀请5位好友</span><span>奖励<font style="color:#f2ab05">120</font>金币</span></li>
+          <li>邀请6位好友奖励10+20+30+60+120+120=
+            <font style="color:#f2ab05">360</font>
+          </li>
+          <li>注：该奖励仅限达到邀请好友奖励规则即可获得</li>
+        </ul>
+      </div>
+      <div class="rolesJl">
+        <p class="title">我的奖励</p>
+        <div class="box">
+          <span>
+            注册好友<span>(人)</span>
+            <i>0</i>
+          </span>
+          <span>
+            已认证通过好友<span></span>
+            <i>0</i>
+          </span>
+          <span>
+            累计奖励<span>(金币)</span>
+            <i>0</i>
+          </span>
+        </div>
+
+      </div>
+      <div class="rolesJl rolesAc">
+        <p class="title">活动规则</p>
+        <p>1.好友必须通过您的专属链接（或二维码）下载并成功注册认证才算你的有效邀请客户，并填写你的手机号；</p>
+        <p>2.发现有违反该活动规则，取消其奖励资格；</p>
+        <p>3.活动每个月都做清零处理</p>
+      </div>
+      <input type="button" value="立即邀请">
+      <p style="font-size:.4rem;text-align:center;color: #adaeae">该活动的最终解释权为[优贷客]所有</p>
+      <p style="font-size:.4rem;text-align:center;color: #adaeae">如有疑问，请咨询官方客服</p>
+    </div>
+
+    <!-- <font>一、奖励说明</font>
+    <div class="rule" v-for="item in rules">
+      <span>{{item.title1}}</span>
+      <span>{{item.title2}} <img src="./img/money.png"></span>
+    </div>
+    <p class="warn">注：该奖励仅限达到邀请好友奖励规则即可获得</p>
+
+    <font>二、活动规则<span class="red">（双方至少充值一次）</span></font>
+    <div class="content">
+      <p v-for="item in contents">{{item.cont}}</p>
+    </div> -->
+
+  </div>
+</body>
+<script>
+  new Vue({
+    el: "#app",
+    data: {
+      rules: [
+        { id: 1, title1: "邀请1位好友", title2: "奖励10金币" },
+        { id: 2, title1: "邀请2位好友", title2: "奖励20金币" },
+        { id: 3, title1: "邀请3位好友", title2: "奖励30金币" },
+        { id: 4, title1: "邀请4位好友", title2: "奖励60金币" },
+        { id: 5, title1: "邀请5位好友", title2: "奖励80金币" },
+        { id: 6, title1: "邀请更多好友", title2: "均奖励80金币" }
+      ],
+      contents: [
+        { id: 1, cont: "1、好友必须通过你的专属链接（或二维码），下载并成功注册认证（注册时需填写推荐人手机号），才算你的有效邀请客户；" },
+        { id: 2, cont: "2、发现如有违反该活动规则，取消其奖励资格；" },
+        { id: 3, cont: "3、活动每个月都做清零处理。" },
+      ]
+    }
+  });
+</script>
+
+</html>

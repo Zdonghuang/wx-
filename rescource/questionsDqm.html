@@ -1,0 +1,89 @@
+﻿
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>常见问题</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<style type="text/css" scoped="scoped">
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+			}
+			body {
+				width: 100%;
+				background: #f2f2f2;
+			}
+			.conts{
+				width:100%;
+			}
+			.conts p:nth-of-type(1){
+				font-size:.43rem;
+				background: #fff;
+				padding:0.5rem;
+				border-bottom:1px solid #ccc;
+			}
+			.conts p:nth-of-type(2){
+				font-size:.43rem;
+				padding:0.5rem;
+				line-height: 0.74rem;
+				color:#333;
+				background: #f4f8fb;
+				font-size:.4rem;
+			}
+			.conts img{
+				float: right;
+			}
+			.conts img:nth-of-type(1){
+				width:0.3rem;
+			}
+			.conts img.down{
+				width:0.55rem;
+				margin-top:0.2rem
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<div id="app">
+			<div class="conts" v-for="(item,index) in lists" :key="item.id">
+				<p @click="change(index)">
+					<span>{{item.title}}</span>
+					<img v-if="!item.isShow" src="./img/rightArrow.png"/>
+					<img v-else src="./img/downArrow.png" class="down"/>
+				</p>
+				<p v-html="item.content" v-show="item.isShow"></p>
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:"#app",
+			data:{
+				lists:[
+					{id:"1",title:'一、通过"贷钱吗"申请贷款的基本要求是什么？',content:"年龄在20－60周岁之间具有收入和还款能力的中国公民；无不良信用记录。",isShow:true},
+					{id:"2",title:'二、"贷钱吗"如何帮我申请贷款？',content:'"贷钱吗"提供多个在线申请渠道，您可以"一键申请"借款；<br/>全程为您提供一对一的免费服务，在您提交借款申请之后，我们会为您选择专业的客服人员，协助您完成贷前工作；<br/>智能匹配，"贷钱吗"会根据您的个人资质、借款需求、匹配最合适您的贷款产品；<br/>全程跟踪，"贷钱吗"会全程跟踪贷款进度，以加快下款速度。',isShow:false},
+					{id:"3",title:'三、通过"贷钱吗"平台申请贷款需要多久对接机构呢？',content:"我们的工作人员在核实过您的资料后，会在1个工作日内帮您匹配到合适的信贷机构，之后会有信贷经理和您直接联系，期间我们的客服人员会为您随时跟踪放款情况。",isShow:false},
+					{id:"4",title:"四、信用白户可以申请贷款吗？",content:"信用白户可以在线申请贷款，唯一不同的是会在利率方面有所调整。",isShow:false},
+					{id:"5",title:"五、我想要消除个人的人征信息和基本资料怎么消除？",content:"所有的认证信息会在一个月之后自动消除，请您放心，您的申请只会用于贷款资格审核，我们将会对您的个人信息严格保密。",isShow:false},
+					{id:"6",title:"六、我申请了多久能通过审核放款？",content:"一般会在您提交申请后的1-3个小时内会有信贷经理接单为您服务，如果超过12个小时后仍然没有信贷经理接单，则代表本次贷款很难成功办理，您可以尝试多申请几款其他贷款产品，提高借款成功率，早日解决资金难题。",isShow:false},
+					{id:"7",title:"七、如果审核失败后，我什么时候能再借？",content:"通过贷钱吗申请借款如果审核失败后，一个礼拜之后可以再来申请借款。",isShow:false},
+				]
+			},
+			methods:{
+				change(index){
+					var self=this;
+					for(var i=0;i<this.lists.length;i++){
+						this.lists[i].isShow=false;
+					}
+					this.lists[index].isShow=true;
+				}
+			}
+		})
+	</script>
+</html>
